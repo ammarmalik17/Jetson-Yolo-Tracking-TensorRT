@@ -86,9 +86,6 @@ def main():
     
     try:
         while True:
-            # Record frame start time
-            frame_start_time = time.time()
-            
             # Capture frame from camera
             ret, frame = cap.read()
             if not ret:

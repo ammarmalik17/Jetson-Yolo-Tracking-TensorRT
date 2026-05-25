@@ -98,7 +98,7 @@ def parse_args():
     parser.add_argument('--batch', type=int, default=32, help='Batch size for processing')
     
     # Output parameters
-    parser.add_argument('--output-dir', type=str, default='tracking_output', help='Directory to save results')
+    parser.add_argument('--output-dir', type=str, default='output', help='Directory to save results')
     parser.add_argument('--save-vid', action='store_true', help='Save annotated video')
     parser.add_argument('--save-tracks', action='store_true', help='Save tracking data')
     
@@ -141,6 +141,12 @@ def main():
     
     # Ensure output directory exists
     os.makedirs(args.output_dir, exist_ok=True)
+    
+    # Create organized subdirectories
+    os.makedirs(os.path.join(args.output_dir, 'videos'), exist_ok=True)
+    os.makedirs(os.path.join(args.output_dir, 'tracks'), exist_ok=True)
+    os.makedirs(os.path.join(args.output_dir, 'summaries'), exist_ok=True)
+    os.makedirs(os.path.join(args.output_dir, 'images'), exist_ok=True)
     
     # Load the model
     print(f"Loading model from {args.model}...")
@@ -227,11 +233,11 @@ def process_video_with_locking(model, args, is_camera=False, use_jetson_camera=F
         if is_camera:
             # For camera, use timestamp for output filename
             timestamp = time.strftime("%Y%m%d_%H%M%S")
-            output_path = os.path.join(args.output_dir, f"camera_{timestamp}_locked.mp4")
+            output_path = os.path.join(args.output_dir, 'videos', f"camera_{timestamp}_locked.mp4")
         else:
             # For video file, use source filename
             video_name = Path(args.source).stem
-            output_path = os.path.join(args.output_dir, f"{video_name}_locked.mp4")
+            output_path = os.path.join(args.output_dir, 'videos', f"{video_name}_locked.mp4")
         
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         output_writer = cv2.VideoWriter(output_path, fourcc, actual_fps, (width, height))
@@ -245,11 +251,11 @@ def process_video_with_locking(model, args, is_camera=False, use_jetson_camera=F
         if is_camera:
             # For camera, use timestamp for output filename
             timestamp = time.strftime("%Y%m%d_%H%M%S")
-            tracks_path = os.path.join(args.output_dir, f"camera_{timestamp}_tracks.txt")
+            tracks_path = os.path.join(args.output_dir, 'tracks', f"camera_{timestamp}_tracks.txt")
         else:
             # For video file, use source filename
             video_name = Path(args.source).stem
-            tracks_path = os.path.join(args.output_dir, f"{video_name}_tracks.txt")
+            tracks_path = os.path.join(args.output_dir, 'tracks', f"{video_name}_tracks.txt")
         
         tracks_file = open(tracks_path, 'w')
         # Write header
@@ -632,7 +638,7 @@ def process_video_with_locking(model, args, is_camera=False, use_jetson_camera=F
                     input_lock_id += chr(key)
             elif key == ord('s') and not paused:
                 # Save the current frame as an image
-                frame_path = os.path.join(args.output_dir, f"frame_{frame_count}.jpg")
+                frame_path = os.path.join(args.output_dir, 'images', f"frame_{frame_count}.jpg")
                 cv2.imwrite(frame_path, annotated_frame)
                 print(f"Saved frame to {frame_path}")
     
@@ -645,11 +651,11 @@ def process_video_with_locking(model, args, is_camera=False, use_jetson_camera=F
     if is_camera:
         # For camera, use timestamp for output filename
         timestamp = time.strftime("%Y%m%d_%H%M%S")
-        results_path = os.path.join(args.output_dir, f"camera_{timestamp}_tracking_summary.txt")
+        results_path = os.path.join(args.output_dir, 'summaries', f"camera_{timestamp}_tracking_summary.txt")
     else:
         # For video file, use source filename
         video_name = Path(args.source).stem
-        results_path = os.path.join(args.output_dir, f"{video_name}_tracking_summary.txt")
+        results_path = os.path.join(args.output_dir, 'summaries', f"{video_name}_tracking_summary.txt")
     
     with open(results_path, 'w') as f:
         f.write(f"Source: {args.source}\n")

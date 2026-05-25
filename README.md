@@ -175,9 +175,9 @@ python tools/export_tensorrt_engine.py
 Outputs: `models/yolo11n.engine` in the models directory.
 
 ## Outputs
-- Annotated video: `<source_name>_locked.mp4` (when `--save-vid`)
-- Track data (CSV): `<source_name>_tracks.txt` (when `--save-tracks`)
-- Run summary: `<source_name>_tracking_summary.txt`
+- Annotated video: `output/videos/<source_name>_locked.mp4` (when `--save-vid`)
+- Track data (CSV): `output/tracks/<source_name>_tracks.txt` (when `--save-tracks`)
+- Run summary: `output/summaries/<source_name>_tracking_summary.txt`
 
 ## Tips and Troubleshooting
 - If OpenCV fails to open ARGUS pipelines on Jetson, ensure no `nvgstcapture-1.0` process is running and OpenCV is built with GStreamer.
