@@ -14,6 +14,7 @@ A production-ready toolkit for real-time YOLO detection, multi-object tracking, 
 - `scripts/yolo_track_lock.py`: Main script for detection, tracking, and interactive object locking across video files, streams, and Jetson camera.
 - `scripts/jetson_camera_inference.py`: Minimal example to run YOLO TensorRT inference on the Jetson ARGUS camera, with performance overlays.
 - `scripts/jetson_camera_test.py`: Quick camera diagnostics to find a working GStreamer pipeline for the ARGUS camera.
+- `scripts/setup_jetson.sh`: Automated setup validation and system diagnostics for Jetson devices.
 - `tools/export_tensorrt_engine.py`: Exports a YOLO model to a TensorRT `.engine` with conservative, Jetson-friendly settings.
 - `models/`: Directory for storing YOLO model files (`.pt`, `.engine`, `.onnx`).
 - `requirements.txt`: Pinned dependencies for x86_64 and Jetson (with platform markers).
@@ -32,6 +33,19 @@ source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
+### Quick Setup & Validation (Jetson Only)
+```bash
+# Run the automated setup and validation script
+bash scripts/setup_jetson.sh
+```
+This script will:
+- Check JetPack version and system compatibility
+- Validate TensorRT, PyTorch, and OpenCV installations
+- Test GStreamer camera support
+- Verify model files
+- Run a quick inference test
+- Provide performance recommendations
 
 Notes for Jetson:
 - Prefer system OpenCV with GStreamer (provided by JetPack). The requirements file avoids pip-OpenCV on aarch64.
