@@ -3,8 +3,6 @@
 A production-ready toolkit for real-time YOLO detection, multi-object tracking, and interactive object locking with TensorRT acceleration. Optimized for NVIDIA Jetson devices and discrete GPUs, with first-class support for the Jetson ARGUS camera via GStreamer.
 
 <p align="center">
-  <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/ammarmalik17/Jetson-Yolo-Tracking-TensorRT" alt="Hits" />
-  <img src="https://profile-counter.glitch.me/ammarmalik17/Jetson-Yolo-Tracking-TensorRT/count.svg" alt="Visitor Count" />
   <img src="https://img.shields.io/github/last-commit/ammarmalik17/Jetson-Yolo-Tracking-TensorRT" alt="Last Commit" />
   <img src="https://img.shields.io/github/license/ammarmalik17/Jetson-Yolo-Tracking-TensorRT" alt="License" />
 </p>
