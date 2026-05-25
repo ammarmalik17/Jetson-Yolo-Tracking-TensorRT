@@ -30,7 +30,7 @@ def test_camera():
             cap = cv2.VideoCapture(pipeline, cv2.CAP_GSTREAMER)
             
             if cap.isOpened():
-                print(f"✅ Pipeline opened successfully")
+                print("✅ Pipeline opened successfully")
                 
                 # Try to read frames
                 success_count = 0
@@ -58,12 +58,12 @@ def test_camera():
                     cv2.destroyAllWindows()
                     cap.release()
                     
-                    print(f"✅ FOUND WORKING PIPELINE!")
+                    print("✅ FOUND WORKING PIPELINE!")
                     return pipeline
                 
                 cap.release()
             else:
-                print(f"❌ Failed to open pipeline")
+                print("❌ Failed to open pipeline")
                 
         except Exception as e:
             print(f"❌ Pipeline error: {e}")
@@ -74,8 +74,8 @@ def test_camera():
 if __name__ == "__main__":
     result = test_camera()
     if result:
-        print(f"\n✅ Camera test passed!")
-        print(f"Working pipeline found!")
+        print("\n✅ Camera test passed!")
+        print("Working pipeline found!")
         print("\nYou can now run jetson_camera_inference.py")
     else:
         print("\n❌ Camera test failed.")

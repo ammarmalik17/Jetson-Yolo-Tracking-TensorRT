@@ -1,7 +1,7 @@
 import cv2
 from ultralytics import YOLO
 import time
-import sys
+import os
 
 def get_jetson_camera():
     """Get camera using GStreamer pipeline for Jetson ARGUS camera"""
@@ -29,7 +29,7 @@ def get_jetson_camera():
                 # Test if we can read a frame
                 ret, frame = cap.read()
                 if ret and frame is not None:
-                    print(f"✅ Found working ARGUS camera pipeline!")
+                    print("✅ Found working ARGUS camera pipeline!")
                     print(f"   Resolution: {frame.shape}")
                     return cap
                 else:
@@ -47,12 +47,15 @@ def main():
     
     # Load the TensorRT engine model
     print("Loading TensorRT model...")
+    # Check models directory first, then fall back to root
+    model_path = 'models/yolo11n.engine' if os.path.exists('models/yolo11n.engine') else 'yolo11n.engine'
     try:
-        model = YOLO("yolo11n.engine", task='detect')  # Explicitly specify task
-        print("✅ Model loaded successfully")
+        model = YOLO(model_path, task='detect')  # Explicitly specify task
+        print(f"✅ Model loaded successfully from: {model_path}")
     except Exception as e:
         print(f"❌ Error loading model: {e}")
-        print("Make sure yolo11n.engine exists. Run export_tensorrt_engine.py first if needed.")
+        print("Make sure yolo11n.engine exists in models/ directory.")
+        print("Run 'python tools/export_tensorrt_engine.py' first if needed.")
         return
     
     # Get Jetson ARGUS camera

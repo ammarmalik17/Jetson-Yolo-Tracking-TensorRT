@@ -1,10 +1,18 @@
 from ultralytics import YOLO
+import os
 
-# Load a YOLO11n PyTorch model
-model = YOLO("yolo11n.pt")
+# Ensure models directory exists
+os.makedirs('models', exist_ok=True)
+
+# Load a YOLO11n PyTorch model (check models directory first)
+model_path = 'models/yolo11n.pt' if os.path.exists('models/yolo11n.pt') else 'yolo11n.pt'
+print(f"Loading model from: {model_path}")
+model = YOLO(model_path)
 
 # Export the model to TensorRT with conservative settings
 # Using static shapes and disabling problematic features
+output_path = 'models/yolo11n.engine'
+print(f"Exporting TensorRT engine to: {output_path}")
 model.export(
     format="engine", 
     half=True, 
@@ -15,7 +23,9 @@ model.export(
     nms=True,
     device=0,          # Explicitly specify GPU device
     verbose=True       # Enable verbose output for debugging
- )  # creates 'yolo11n.engine'
+)  # creates 'models/yolo11n.engine'
 
 # Load the exported TensorRT model
-trt_model = YOLO("yolo11n.engine")
+print(f"Loading TensorRT engine from: {output_path}")
+trt_model = YOLO(output_path)
+print("✅ Export complete! Model saved to models/yolo11n.engine")

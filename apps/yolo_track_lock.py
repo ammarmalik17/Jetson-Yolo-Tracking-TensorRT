@@ -37,7 +37,7 @@ def get_jetson_camera():
                 # Test if we can read a frame
                 ret, frame = cap.read()
                 if ret and frame is not None:
-                    print(f"✅ Found working ARGUS camera pipeline!")
+                    print("✅ Found working ARGUS camera pipeline!")
                     print(f"   Resolution: {frame.shape}")
                     return cap
                 else:
@@ -74,7 +74,7 @@ def parse_classes(classes_arg):
 def parse_args():
     parser = argparse.ArgumentParser(description="Run YOLO tracking with object locking capability")
     # Model and source parameters
-    parser.add_argument('--model', type=str, default='yolo11n.engine', help='Path to the YOLO model (TensorRT engine preferred)')
+    parser.add_argument('--model', type=str, default='models/yolo11n.engine', help='Path to the YOLO model (TensorRT engine preferred)')
     parser.add_argument('--source', type=str, required=True, help='Path to the video file, image, directory, URL, or device ID')
     
     # Detection and tracking parameters
@@ -165,7 +165,7 @@ def main():
         process_video_with_locking(model, args)
     elif args.source.lower() in ['camera', 'jetson', 'camsrc=1']:
         # Jetson ARGUS camera
-        print(f"Using Jetson ARGUS camera (equivalent to nvgstcapture --camsrc=1)")
+        print("Using Jetson ARGUS camera (equivalent to nvgstcapture --camsrc=1)")
         process_video_with_locking(model, args, is_camera=True, use_jetson_camera=True)
     elif args.source.isdigit() or args.source.startswith(('rtsp://', 'http://', 'https://', 'rtmp://')):
         # Camera or streaming source
