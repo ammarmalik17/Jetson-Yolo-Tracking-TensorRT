@@ -11,9 +11,9 @@ A production-ready toolkit for real-time YOLO detection, multi-object tracking, 
 - Video/file stream support and optional saving of annotated video and tracks
 
 ## Repository Layout
-- `apps/yolo_track_lock.py`: Main script for detection, tracking, and interactive object locking across video files, streams, and Jetson camera.
-- `apps/jetson_camera_inference.py`: Minimal example to run YOLO TensorRT inference on the Jetson ARGUS camera, with performance overlays.
-- `apps/jetson_camera_test.py`: Quick camera diagnostics to find a working GStreamer pipeline for the ARGUS camera.
+- `scripts/yolo_track_lock.py`: Main script for detection, tracking, and interactive object locking across video files, streams, and Jetson camera.
+- `scripts/jetson_camera_inference.py`: Minimal example to run YOLO TensorRT inference on the Jetson ARGUS camera, with performance overlays.
+- `scripts/jetson_camera_test.py`: Quick camera diagnostics to find a working GStreamer pipeline for the ARGUS camera.
 - `tools/export_tensorrt_engine.py`: Exports a YOLO model to a TensorRT `.engine` with conservative, Jetson-friendly settings.
 - `models/`: Directory for storing YOLO model files (`.pt`, `.engine`, `.onnx`).
 - `requirements.txt`: Pinned dependencies for x86_64 and Jetson (with platform markers).
@@ -102,7 +102,7 @@ Place your engine file in the `models/` directory, e.g., `models/best.engine` or
 Multi-object tracking with interactive object locking.
 
 ```bash
-python apps/yolo_track_lock.py \
+python scripts/yolo_track_lock.py \
   --model models/yolo11n.engine \
   --source 0 \
   --conf-thres 0.25 \
@@ -142,30 +142,30 @@ Controls during runtime:
 Examples:
 - From a video file:
   ```bash
-  python apps/yolo_track_lock.py --model models/yolo11n.engine --source sample.mp4 --save-vid --enable-lock
+  python scripts/yolo_track_lock.py --model models/yolo11n.engine --source sample.mp4 --save-vid --enable-lock
   ```
 - From a USB camera:
   ```bash
-  python apps/yolo_track_lock.py --model models/yolo11n.engine --source 0 --show-tracks --enable-lock
+  python scripts/yolo_track_lock.py --model models/yolo11n.engine --source 0 --show-tracks --enable-lock
   ```
 - From Jetson ARGUS camera:
   ```bash
-  python apps/yolo_track_lock.py --model models/yolo11n.engine --source jetson --enable-lock --display
+  python scripts/yolo_track_lock.py --model models/yolo11n.engine --source jetson --enable-lock --display
   ```
 
 ### jetson_camera_inference.py
 Minimal camera inference with FPS overlays (TensorRT engine required):
 ```bash
-python apps/jetson_camera_inference.py
+python scripts/jetson_camera_inference.py
 ```
 If loading fails, ensure `models/yolo11n.engine` exists or export via `tools/export_tensorrt_engine.py`.
 
 ### jetson_camera_test.py
 Probe for a working GStreamer pipeline on Jetson and show a short preview:
 ```bash
-python apps/jetson_camera_test.py
+python scripts/jetson_camera_test.py
 ```
-On success, it prints a working pipeline and suggests running `apps/jetson_camera_inference.py`.
+On success, it prints a working pipeline and suggests running `scripts/jetson_camera_inference.py`.
 
 ### export_tensorrt_engine.py
 Export a YOLO model to TensorRT with static shapes and FP16:
