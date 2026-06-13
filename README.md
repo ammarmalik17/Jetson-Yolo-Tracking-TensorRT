@@ -8,7 +8,7 @@ A production-ready toolkit for real-time YOLO detection, multi-object tracking, 
 </p>
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/ammarmalik17/Jetson-Yolo-Tracking-TensorRT@main/assets/demo_tracking.png" alt="YOLO Multi-Object Tracking Demo" width="800" decoding="async">
+  <img src="https://cdn.jsdelivr.net/gh/ammarmalik17/Jetson-Yolo-Tracking-TensorRT@main/assets/demo_tracking.webp" alt="YOLO Multi-Object Tracking Demo" width="800" decoding="async">
 </p>
 
 ## Features
