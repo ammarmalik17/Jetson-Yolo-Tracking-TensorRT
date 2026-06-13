@@ -7,6 +7,10 @@ A production-ready toolkit for real-time YOLO detection, multi-object tracking, 
   <img src="https://img.shields.io/github/license/ammarmalik17/Jetson-Yolo-Tracking-TensorRT" alt="License" />
 </p>
 
+<p align="center">
+  <img src="assets/demo_tracking.png" alt="YOLO Multi-Object Tracking Demo" width="800">
+</p>
+
 ## Features
 - TensorRT-accelerated YOLO inference (Ultralytics)
 - Multi-object tracking with BoT-SORT/ByteTrack
